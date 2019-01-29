@@ -15,6 +15,12 @@ const PSDI_CHARACTERISTIC_UUID  = '26E2B12B-85F0-4F3F-9FDD-91D114270E6E';
 let ledState = false; // true: LED on, false: LED off
 let clickCount = 0;
 
+var mqtt;
+var reconnectTimeout = 2000;
+var host="m15.cloudmqtt.com";
+var port=31975;
+
+
 // -------------- //
 // On window load //
 // -------------- //
@@ -30,9 +36,40 @@ window.onload = () => {
 function handlerToggleLed() {
     ledState = !ledState;
 
+    MQTTconnect();
+    
     uiToggleLedButton(ledState);
     liffToggleDeviceLedState(ledState);
 }
+
+
+//---------------
+	 	function onConnect() {
+	  // Once a connection has been made, make a subscription and send a message.
+	
+		console.log("Connected ");
+		//mqtt.subscribe("sensor1");
+		message = new Paho.MQTT.Message("Hello World");
+		message.destinationName = "sensor1";
+		mqtt.send(message);
+	  }
+	  function MQTTconnect() {
+		console.log("connecting to "+ host +" "+ port);
+		mqtt = new Paho.MQTT.Client(host,port,"clientjs");
+		//document.write("connecting to "+ host);
+		var options = {
+			useSSL: true,
+			userName: "DKWSF5FW0MHBB5AXB4",
+			password: "DKWSF5FW0MHBB5AXB4",
+			timeout: 3,
+			onSuccess: onConnect
+					  
+		 };
+		 
+		mqtt.connect(options); //connect
+		}
+
+
 
 // ------------ //
 // UI functions //
