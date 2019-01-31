@@ -17,8 +17,8 @@ let clickCount = 0;
 
 var mqtt;
 var reconnectTimeout = 2000;
-var host="m15.cloudmqtt.com";
-var port=31975;
+var host="m12.cloudmqtt.com";
+var port=319;
 
 
 // -------------- //
@@ -36,7 +36,7 @@ window.onload = () => {
 function handlerToggleLed() {
     ledState = !ledState;
 
-    MQTTconnect();
+    
     
     uiToggleLedButton(ledState);
     liffToggleDeviceLedState(ledState);
@@ -59,8 +59,8 @@ function handlerToggleLed() {
 		//document.write("connecting to "+ host);
 		var options = {
 			useSSL: true,
-			userName: "DKWSF5FW0MHBB5AXB4",
-			password: "DKWSF5FW0MHBB5AXB4",
+			userName: "DKWSF5FW0MHBB5AXB412",
+			password: "DKWSF5FW0MHBB5AXB412",
 			timeout: 3,
 			onSuccess: onConnect
 					  
